@@ -2,31 +2,112 @@
     x:Class="HTTPClientTestingTool.UI.Views.InputView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:data="clr-namespace:HTTPClientTestingTool.Data;assembly=HTTPClientTestingTool.Data"
     xmlns:local="clr-namespace:HTTPClientTestingTool.UI.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid>
+
+    <UserControl.Resources>
+        <ObjectDataProvider
+            x:Key="EHttpMethodEnum"
+            MethodName="GetValues"
+            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="data:EHttpMethods" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" LastChildFill="False">
-            <TextBlock
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                Text="URL:" />
 
-            <TextBox
-                VerticalAlignment="Center"
-                DockPanel.Dock="Right"
-                Text="{Binding URL}" />
-        </DockPanel>
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="0,0,20,0"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Left"
+            Text="URL:" />
+
+        <TextBox
+            Grid.Row="0"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Left"
+            Text="{Binding URL}" />
+
+
+
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="0,0,20,0"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Left"
+            Text="HTTP Method" />
+
+        <ComboBox
+            Grid.Row="1"
+            Grid.Column="1"
+            ItemsSource="{Binding Methods}"
+            SelectedItem="{Binding SelectedMethod}" />
+
+
+
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="0,0,20,0"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Left"
+            Text="Headers" />
+
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Left"
+            Text="{Binding Headers}" />
+
+
+
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="0"
+            Margin="0,0,20,0"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Left"
+            Text="Body" />
+
+        <TextBox
+            Grid.Row="3"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Left"
+            Text="{Binding RequestBody}" />
+
+        <Button
+            Grid.Row="4"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Command="{Binding SendRequestCommand}"
+            Content="Send Request"
+            Margin="5"/>
 
     </Grid>
 </UserControl>

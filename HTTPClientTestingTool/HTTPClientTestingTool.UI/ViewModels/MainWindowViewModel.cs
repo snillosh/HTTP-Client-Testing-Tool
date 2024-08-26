@@ -2,22 +2,22 @@
 
 class MainWindowViewModel : ViewModelBase
 {
-    public MainWindowViewModel()
+    public MainWindowViewModel(InputViewModel inputViewModel)
     {
-        Content = new InputViewModel();
+        UpperContent = inputViewModel;
     }
 
     public string Title => "HTTP Tester";
 
-    private ViewModelBase _content;
+    private ViewModelBase _upperContent;
 
-    public ViewModelBase Content
+    public ViewModelBase UpperContent
     {
-        get => _content;
+        get => _upperContent;
         set
         {
-            _content = value;
-            OnPropertyChanged(nameof(Content));
+            _upperContent = value;
+            OnPropertyChanged(nameof(UpperContent));
         }
     }
 }
