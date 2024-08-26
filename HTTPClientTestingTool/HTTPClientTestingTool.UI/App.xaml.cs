@@ -14,9 +14,10 @@ public partial class App : Application
         base.OnStartup(e);
 
         var inputViewModel = new InputViewModel();
+        var outputViewModel = new OutputViewModel();
 
         // Create and configure the MainWindow
-        var mainWindowViewModel = new MainWindowViewModel(inputViewModel);
+        var mainWindowViewModel = new MainWindowViewModel(inputViewModel, outputViewModel);
         var mainWindow = new MainWindow
         {
             DataContext = mainWindowViewModel

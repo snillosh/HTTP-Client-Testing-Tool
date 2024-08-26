@@ -2,16 +2,19 @@
 
 class MainWindowViewModel : ViewModelBase
 {
-    public MainWindowViewModel(InputViewModel inputViewModel)
+    public MainWindowViewModel(InputViewModel inputViewModel, OutputViewModel outputViewModel)
     {
         UpperContent = inputViewModel;
+        LowerContent = outputViewModel;
+
+        UpperContent.ResponseChanged += LowerContent.GetResponse;
     }
 
     public string Title => "HTTP Tester";
 
-    private ViewModelBase _upperContent;
+    private InputViewModel _upperContent;
 
-    public ViewModelBase UpperContent
+    public InputViewModel UpperContent
     {
         get => _upperContent;
         set
@@ -20,4 +23,13 @@ class MainWindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(UpperContent));
         }
     }
+
+    private OutputViewModel _lowerContent;
+
+    public OutputViewModel LowerContent
+    {
+        get { return _lowerContent; }
+        set { _lowerContent = value; }
+    }
+
 }

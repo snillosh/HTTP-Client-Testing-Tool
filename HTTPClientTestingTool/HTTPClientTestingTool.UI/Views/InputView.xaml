@@ -107,7 +107,7 @@
             Grid.ColumnSpan="2"
             Command="{Binding SendRequestCommand}"
             Content="Send Request"
-            Margin="5"/>
+            Margin="0,5"/>
 
     </Grid>
 </UserControl>
