@@ -1,6 +1,5 @@
 ﻿using HTTPClientTestingTool.UI.ViewModels;
-using System.Configuration;
-using System.Data;
+using HTTPClientTestingTool.UI.Views;
 using System.Windows;
 
 namespace HTTPClientTestingTool.UI;
@@ -10,15 +9,18 @@ namespace HTTPClientTestingTool.UI;
 /// </summary>
 public partial class App : Application
 {
-    public App()
+    protected override void OnStartup(StartupEventArgs e)
     {
-        var mainWindowViewModel = new MainWindowViewModel();
+        base.OnStartup(e);
 
+        // Create and configure the MainWindow
+        var mainWindowViewModel = new MainWindowViewModel();
         var mainWindow = new MainWindow
         {
             DataContext = mainWindowViewModel
         };
 
+        // Show the MainWindow
         mainWindow.Show();
     }
 }

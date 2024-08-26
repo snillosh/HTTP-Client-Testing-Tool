@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTPClientTestingTool.UI", "HTTPClientTestingTool.UI\HTTPClientTestingTool.UI.csproj", "{B151E50F-589D-4A89-B51D-B8AE9ECFF02C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTPClientTestingTool.Data", "HTTPClientTestingTool.Data\HTTPClientTestingTool.Data.csproj", "{6B17D45B-713F-4F91-B23A-5F21C7B8325D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B151E50F-589D-4A89-B51D-B8AE9ECFF02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B151E50F-589D-4A89-B51D-B8AE9ECFF02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B151E50F-589D-4A89-B51D-B8AE9ECFF02C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B17D45B-713F-4F91-B23A-5F21C7B8325D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B17D45B-713F-4F91-B23A-5F21C7B8325D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B17D45B-713F-4F91-B23A-5F21C7B8325D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B17D45B-713F-4F91-B23A-5F21C7B8325D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
