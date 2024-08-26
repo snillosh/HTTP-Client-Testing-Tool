@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using static System.Net.WebRequestMethods;
 using JsonException = System.Text.Json.JsonException;
 
 namespace HTTPClientTestingTool.UI.ViewModels;
@@ -25,11 +26,15 @@ class InputViewModel : ViewModelBase
         SendRequestCommand = new RelayCommand(SendRequestAction, CanSendRequestCommand);
 
         httpClient = new HttpClient();
+
+        RequestBody = JsonConvert.SerializeObject(new Fruit("Apple", 1));
+
+        URL = "https://localhost:7061/fruit/f1";
     }
 
     private async void SendRequestAction(object obj)
     {
-        if (SelectedMethod != EHttpMethods.Get)
+        if (SelectedMethod != EHttpMethods.Get && SelectedMethod != EHttpMethods.Delete)
         {
             if (!IsJsonValid())
             {
@@ -140,9 +145,10 @@ class InputViewModel : ViewModelBase
         try
         {
             using var jsonDoc = JsonDocument.Parse(RequestBody);
+
             return true;
         }
-        catch (JsonException)
+        catch (Exception)
         {
             return false;
         }
