@@ -1,35 +1,69 @@
-﻿namespace HTTPClientTestingTool.UI.ViewModels;
+﻿
+using HTTPClientTestingTool.UI.Utilities;
+using System.Windows.Input;
+
+namespace HTTPClientTestingTool.UI.ViewModels;
 
 class MainWindowViewModel : ViewModelBase
 {
+    private readonly OutputViewModel _outputViewModel;
+    private readonly InputViewModel _inputViewModel;
     public MainWindowViewModel(InputViewModel inputViewModel, OutputViewModel outputViewModel)
     {
-        UpperContent = inputViewModel;
-        LowerContent = outputViewModel;
+        _inputViewModel = inputViewModel;
+        _outputViewModel = outputViewModel;
 
-        UpperContent.ResponseChanged += LowerContent.GetResponse;
+        UpperContent = _inputViewModel;
+        LowerContent = _outputViewModel;
+
+        SettingsButtonCommand = new RelayCommand(SettingsButtonClicked);
+
+        _inputViewModel.ResponseChanged += _outputViewModel.GetResponse;
     }
 
-    public string Title => "HTTP Tester";
+    private void SettingsButtonClicked(object obj)
+    {
+        LowerContent = LowerContent.GetType() == typeof(OutputViewModel) ? new SettingsViewModel() : _outputViewModel;
 
-    private InputViewModel _upperContent;
+        OnPropertyChanged(nameof(SettingsButtonContent));
+    }
 
-    public InputViewModel UpperContent
+    public string Title => "HTTP Client Test Tool";
+
+    private ViewModelBase _upperContent;
+
+    public ViewModelBase UpperContent
     {
         get => _upperContent;
         set
         {
             _upperContent = value;
-            OnPropertyChanged(nameof(UpperContent));
+            OnPropertyChanged();
         }
     }
 
-    private OutputViewModel _lowerContent;
+    private ViewModelBase _lowerContent;
 
-    public OutputViewModel LowerContent
+    public ViewModelBase LowerContent
     {
-        get { return _lowerContent; }
-        set { _lowerContent = value; }
+        get => _lowerContent;
+        set
+        {
+            _lowerContent = value;
+            OnPropertyChanged();
+        }
     }
 
+    private string _settingsButtonContent;
+
+    public string SettingsButtonContent
+    {
+        get
+        {
+            return LowerContent.GetType() == typeof(OutputViewModel) ? Strings.SettingsButton_Settings : Strings.SettingsButton_Home;
+        }
+    }
+
+
+    public ICommand SettingsButtonCommand { get; }
 }

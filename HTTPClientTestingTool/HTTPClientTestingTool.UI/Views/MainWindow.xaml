@@ -14,13 +14,26 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ContentControl Grid.Row="0" Content="{Binding UpperContent}" />
+        <DockPanel Grid.Row="0" LastChildFill="False">
 
-        <ContentControl Grid.Row="1" Content="{Binding LowerContent}" />
+            <TextBlock FontSize="36" Text="{Binding Title}" />
+
+            <Button
+                Margin="5"
+                Padding="5"
+                Command="{Binding SettingsButtonCommand}"
+                Content="{Binding SettingsButtonContent}"
+                DockPanel.Dock="Right" />
+        </DockPanel>
+
+        <ContentControl Grid.Row="1" Content="{Binding UpperContent}" />
+
+        <ContentControl Grid.Row="2" Content="{Binding LowerContent}" />
 
     </Grid>
 </Window>

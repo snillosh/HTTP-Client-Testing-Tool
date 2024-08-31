@@ -14,5 +14,8 @@
         <DataTemplate DataType="{x:Type viewModels:OutputViewModel}">
             <views:OutputView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
+            <views:SettingsView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

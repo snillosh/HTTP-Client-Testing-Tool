@@ -14,6 +14,8 @@ public sealed class InputViewModel : ViewModelBase, IDisposable
 
     public InputViewModel()
     {
+        URL = UserSettings.Default.DefaultUri;
+
         SendRequestCommand = new RelayCommand(SendRequestAction, CanSendRequestCommand);
 
         httpClient = new HttpClient();
@@ -57,7 +59,7 @@ public sealed class InputViewModel : ViewModelBase, IDisposable
 
     public EventHandler<string>? ResponseChanged;
 
-    private string _url = "https://localhost:7061/";
+    private string _url;
 
     public string URL
     {
