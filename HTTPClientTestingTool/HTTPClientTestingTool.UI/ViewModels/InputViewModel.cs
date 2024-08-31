@@ -14,13 +14,9 @@ public sealed class InputViewModel : ViewModelBase, IDisposable
 
     public InputViewModel()
     {
-        SelectedMethod = EHttpMethods.Get;
-
         SendRequestCommand = new RelayCommand(SendRequestAction, CanSendRequestCommand);
 
         httpClient = new HttpClient();
-
-        URL = "https://localhost:7061/";
     }
 
     private async void SendRequestAction(object obj)
@@ -59,9 +55,9 @@ public sealed class InputViewModel : ViewModelBase, IDisposable
         return true;
     }
 
-    public EventHandler<string> ResponseChanged;
+    public EventHandler<string>? ResponseChanged;
 
-    private string _url;
+    private string _url = "https://localhost:7061/";
 
     public string URL
     {
@@ -81,7 +77,7 @@ public sealed class InputViewModel : ViewModelBase, IDisposable
 
     public string RequestBody { get => _requestBody; set { _requestBody = value; OnPropertyChanged(); } }
 
-    private EHttpMethods _selectedMethod;
+    private EHttpMethods _selectedMethod = EHttpMethods.Get;
 
     public EHttpMethods SelectedMethod
     {

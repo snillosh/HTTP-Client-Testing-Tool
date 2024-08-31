@@ -6,18 +6,10 @@ internal class HttpRequestMessageBuilderFinal : IHttpRequestMessageBuilderFinal
 {
     private HttpRequestMessage _requestMessage;
 
-    public HttpRequestMessageBuilderFinal(HttpRequestMessage requestMessage)
-    {
-        _requestMessage = requestMessage;
-    }
+    public HttpRequestMessageBuilderFinal(HttpRequestMessage requestMessage) => _requestMessage = requestMessage;
 
     public IHttpRequestMessageBuilderFinal WithHeaders(string headers)
     {
-        if (_requestMessage == null)
-        {
-            throw new InvalidOperationException("Method must be set before adding headers.");
-        }
-
         // Set headers on the request
         var individualHeader = headers.Split(",");
         foreach (var header in individualHeader)
@@ -34,22 +26,11 @@ internal class HttpRequestMessageBuilderFinal : IHttpRequestMessageBuilderFinal
 
     public IHttpRequestMessageBuilderFinal WithContent(HttpContent content)
     {
-        if (_requestMessage == null)
-        {
-            throw new InvalidOperationException("Method must be set before setting content.");
-        }
         _requestMessage.Content = content;
         return this;
     }
 
-    public HttpRequestMessage Build()
-    {
-        if (_requestMessage == null || _requestMessage.Method == null || string.IsNullOrEmpty(_requestMessage.RequestUri.ToString()))
-        {
-            throw new InvalidOperationException("Method and URI must be set before building.");
-        }
-        return _requestMessage;
-    }
+    public HttpRequestMessage Build() => _requestMessage;
 }
 
 public interface IHttpRequestMessageBuilderFinal
