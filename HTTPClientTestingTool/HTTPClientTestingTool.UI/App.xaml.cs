@@ -9,15 +9,18 @@ namespace HTTPClientTestingTool.UI;
 /// </summary>
 public partial class App : Application
 {
+    private InputViewModel _inputViewModel;
+
+    public App() => _inputViewModel = new InputViewModel();
+
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
-        var inputViewModel = new InputViewModel();
         var outputViewModel = new OutputViewModel();
 
         // Create and configure the MainWindow
-        var mainWindowViewModel = new MainWindowViewModel(inputViewModel, outputViewModel);
+        var mainWindowViewModel = new MainWindowViewModel(_inputViewModel, outputViewModel);
         var mainWindow = new MainWindow
         {
             DataContext = mainWindowViewModel
@@ -25,5 +28,12 @@ public partial class App : Application
 
         // Show the MainWindow
         mainWindow.Show();
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        base.OnExit(e);
+
+        _inputViewModel.Dispose();
     }
 }

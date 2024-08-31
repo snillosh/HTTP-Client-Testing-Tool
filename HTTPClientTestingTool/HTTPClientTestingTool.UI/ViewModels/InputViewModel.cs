@@ -1,21 +1,14 @@
 ﻿using HTTPClientTestingTool.Data;
 using HTTPClientTestingTool.UI.Utilities;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using static System.Net.WebRequestMethods;
-using JsonException = System.Text.Json.JsonException;
 
 namespace HTTPClientTestingTool.UI.ViewModels;
 
-class InputViewModel : ViewModelBase
+public sealed class InputViewModel : ViewModelBase, IDisposable
 {
     private readonly HttpClient httpClient;
 
@@ -27,9 +20,7 @@ class InputViewModel : ViewModelBase
 
         httpClient = new HttpClient();
 
-        RequestBody = JsonConvert.SerializeObject(new Fruit("Apple", 1));
-
-        URL = "https://localhost:7061/fruit/f1";
+        URL = "https://localhost:7061/";
     }
 
     private async void SendRequestAction(object obj)
@@ -48,14 +39,33 @@ class InputViewModel : ViewModelBase
         {
             var content = new StringContent(RequestBody, Encoding.UTF8, "application/json");
 
-            var response = SelectedMethod switch
+            var request = new HttpRequestMessage
             {
-                EHttpMethods.Get => await httpClient.GetAsync(URL),
-                EHttpMethods.Post => await httpClient.PostAsync(URL, content),
-                EHttpMethods.Put => await httpClient.PutAsync(URL, content),
-                EHttpMethods.Delete => await httpClient.DeleteAsync(URL),
-                _ => throw new InvalidOperationException("Unsupported HTTP method.")
+                Method = SelectedMethod switch
+                {
+                    EHttpMethods.Get => HttpMethod.Get,
+                    EHttpMethods.Post => HttpMethod.Post,
+                    EHttpMethods.Put => HttpMethod.Put,
+                    EHttpMethods.Delete => HttpMethod.Delete,
+                    _ => throw new InvalidOperationException("Unsupported HTTP method.")
+                },
+
+                RequestUri = new Uri(URL),
+                Content = content
             };
+
+            // Set headers on the request
+            var headers = Headers.Split(",");
+            foreach (var split in headers)
+            {
+                var sections = split.Split(":");
+                if (sections.Length == 2)
+                {
+                    request.Headers.Add(sections[0].Trim(), sections[1].Trim());
+                }
+            }
+
+            var response = await httpClient.SendAsync(request);
 
             ResponseBody = await response.Content.ReadAsStringAsync();
         }
@@ -84,12 +94,11 @@ class InputViewModel : ViewModelBase
         }
     }
 
-
-    private string _headers;
+    private string _headers = string.Empty;
 
     public string Headers { get => _headers; set { _headers = value; OnPropertyChanged(); } }
 
-    private string _requestBody;
+    private string _requestBody = string.Empty;
 
     public string RequestBody { get => _requestBody; set { _requestBody = value; OnPropertyChanged(); } }
 
@@ -116,7 +125,7 @@ class InputViewModel : ViewModelBase
 
     public ICommand SendRequestCommand { get; }
 
-    private string _responseBody;
+    private string _responseBody = string.Empty;
 
     public string ResponseBody
     {
@@ -153,6 +162,8 @@ class InputViewModel : ViewModelBase
             return false;
         }
     }
+
+    public void Dispose() => httpClient.Dispose();
 }
 
 public record Fruit(string Name, int Stock);
