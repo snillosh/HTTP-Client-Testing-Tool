@@ -23,7 +23,7 @@
         <TextBlock
             Grid.Row="0"
             Grid.Column="0"
-            Text="{x:Static resx:Strings.Settings_DefaultUri}" />
+            Text="Default URI" />
 
         <TextBox
             Grid.Row="0"
@@ -35,7 +35,7 @@
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Command="{Binding SaveSettingsCommand}"
-            Content="{x:Static resx:Strings.Settings_SaveSettings}" />
+            Content="Save Settings" />
 
     </Grid>
 </UserControl>

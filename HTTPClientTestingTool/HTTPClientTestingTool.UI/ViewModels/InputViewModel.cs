@@ -1,4 +1,4 @@
-﻿using HTTPClientTestingTool.Data;
+﻿using HTTPClientTestingTool.HTTPMessages;
 using HTTPClientTestingTool.UI.Utilities;
 using System.Net.Http;
 using System.Text;

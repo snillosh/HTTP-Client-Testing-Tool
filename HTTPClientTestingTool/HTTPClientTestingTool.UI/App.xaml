@@ -5,17 +5,29 @@
     xmlns:viewModels="clr-namespace:HTTPClientTestingTool.UI.ViewModels"
     xmlns:views="clr-namespace:HTTPClientTestingTool.UI.Views">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type viewModels:MainWindowViewModel}">
-            <views:MainWindow />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:InputViewModel}">
-            <views:InputView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:OutputViewModel}">
-            <views:OutputView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
-            <views:SettingsView />
-        </DataTemplate>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--  MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive!  -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!--  Theme setting  -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModels:MainWindowViewModel}">
+                <views:MainWindow />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:InputViewModel}">
+                <views:InputView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:OutputViewModel}">
+                <views:OutputView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
+                <views:SettingsView />
+            </DataTemplate>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

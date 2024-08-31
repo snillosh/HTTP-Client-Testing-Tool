@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-
-namespace HTTPClientTestingTool.Data;
+﻿namespace HTTPClientTestingTool.HTTPMessages;
 
 internal class HttpRequestMessageBuilderFinal : IHttpRequestMessageBuilderFinal
 {

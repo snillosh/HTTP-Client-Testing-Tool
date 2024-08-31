@@ -9,11 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HTTPClientTestingTool.Data\HTTPClientTestingTool.Data.csproj" />
+    <ProjectReference Include="..\HTTPClientTestingTool.HTTPMessages\HTTPClientTestingTool.HTTPMessages.csproj" />
   </ItemGroup>
 
   <ItemGroup>
