@@ -1,8 +1,8 @@
 ﻿namespace HTTPClientTestingTool.UI.ViewModels;
 
-class OutputViewModel : ViewModelBase
+class ResponseViewModel : ViewModelBase
 {
-    public OutputViewModel()
+    public ResponseViewModel()
     {
         Output = string.Empty;
     }

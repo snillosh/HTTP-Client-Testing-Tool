@@ -1,6 +1,6 @@
 ﻿namespace HTTPClientTestingTool.HTTPMessages;
 
-public enum EHttpMethods
+public enum EHttpMethod
 {
     Get,
     Post,

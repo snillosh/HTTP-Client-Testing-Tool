@@ -1,4 +1,5 @@
-﻿using HTTPClientTestingTool.UI.ViewModels;
+﻿using ControlzEx.Theming;
+using HTTPClientTestingTool.UI.ViewModels;
 using HTTPClientTestingTool.UI.Views;
 using System.Windows;
 
@@ -9,15 +10,17 @@ namespace HTTPClientTestingTool.UI;
 /// </summary>
 public partial class App : Application
 {
-    private InputViewModel _inputViewModel;
+    private RequestViewModel _inputViewModel;
 
-    public App() => _inputViewModel = new InputViewModel();
+    public App() => _inputViewModel = new RequestViewModel();
 
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
-        var outputViewModel = new OutputViewModel();
+        ThemeManager.Current.ChangeTheme(this, "Dark.Green");
+
+        var outputViewModel = new ResponseViewModel();
 
         // Create and configure the MainWindow
         var mainWindowViewModel = new MainWindowViewModel(_inputViewModel, outputViewModel);

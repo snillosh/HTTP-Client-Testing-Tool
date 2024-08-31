@@ -18,11 +18,11 @@
             <DataTemplate DataType="{x:Type viewModels:MainWindowViewModel}">
                 <views:MainWindow />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModels:InputViewModel}">
-                <views:InputView />
+            <DataTemplate DataType="{x:Type viewModels:RequestViewModel}">
+                <views:RequestView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModels:OutputViewModel}">
-                <views:OutputView />
+            <DataTemplate DataType="{x:Type viewModels:ResponseViewModel}">
+                <views:ResponseView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
                 <views:SettingsView />

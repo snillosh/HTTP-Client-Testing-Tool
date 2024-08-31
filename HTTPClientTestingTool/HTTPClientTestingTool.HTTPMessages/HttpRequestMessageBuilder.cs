@@ -10,7 +10,7 @@ public static class HttpRequestMessageBuilder
 
 public interface IHttpRequestMessageRequiresMethod
 {
-    IHttpRequestMessageBuilderFinal WithMethod(EHttpMethods method);
+    IHttpRequestMessageBuilderFinal WithMethod(EHttpMethod method);
 }
 
 internal class HttpRequestMessageRequiresMethod : IHttpRequestMessageRequiresMethod
@@ -22,7 +22,7 @@ internal class HttpRequestMessageRequiresMethod : IHttpRequestMessageRequiresMet
         _requestMessage = requestMessage;
     }
 
-    public IHttpRequestMessageBuilderFinal WithMethod(EHttpMethods method)
+    public IHttpRequestMessageBuilderFinal WithMethod(EHttpMethod method)
     {
         var httpMethod = new HttpMethod(method.ToString());
 
@@ -30,4 +30,43 @@ internal class HttpRequestMessageRequiresMethod : IHttpRequestMessageRequiresMet
 
         return new HttpRequestMessageBuilderFinal(_requestMessage);
     }
+}
+
+internal class HttpRequestMessageBuilderFinal : IHttpRequestMessageBuilderFinal
+{
+    private HttpRequestMessage _requestMessage;
+
+    public HttpRequestMessageBuilderFinal(HttpRequestMessage requestMessage) => _requestMessage = requestMessage;
+
+    public IHttpRequestMessageBuilderFinal WithHeaders(string headers)
+    {
+        // Set headers on the request
+        var individualHeader = headers.Split(",");
+        foreach (var header in individualHeader)
+        {
+            var keyValuePair = header.Split(":");
+            if (keyValuePair.Length == 2)
+            {
+                _requestMessage.Headers.TryAddWithoutValidation(keyValuePair[0].Trim(), keyValuePair[1].Trim());
+            }
+        }
+
+        return this;
+    }
+
+    public IHttpRequestMessageBuilderFinal WithContent(HttpContent content)
+    {
+        _requestMessage.Content = content;
+        return this;
+    }
+
+    public HttpRequestMessage Build() => _requestMessage;
+}
+
+public interface IHttpRequestMessageBuilderFinal
+{
+    IHttpRequestMessageBuilderFinal WithContent(HttpContent content);
+    IHttpRequestMessageBuilderFinal WithHeaders(string headers);
+
+    HttpRequestMessage Build();
 }

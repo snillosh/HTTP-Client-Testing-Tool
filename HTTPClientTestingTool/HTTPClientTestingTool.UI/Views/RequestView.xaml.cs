@@ -3,11 +3,11 @@
 namespace HTTPClientTestingTool.UI.Views
 {
     /// <summary>
-    /// Interaction logic for InputView.xaml
+    /// Interaction logic for RequestView.xaml
     /// </summary>
-    public partial class InputView : UserControl
+    public partial class RequestView : UserControl
     {
-        public InputView()
+        public RequestView()
         {
             InitializeComponent();
         }

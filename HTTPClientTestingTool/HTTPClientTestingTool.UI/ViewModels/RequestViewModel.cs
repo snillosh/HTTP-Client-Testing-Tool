@@ -8,11 +8,11 @@ using System.Windows.Input;
 
 namespace HTTPClientTestingTool.UI.ViewModels;
 
-public sealed class InputViewModel : ViewModelBase, IDisposable
+public sealed class RequestViewModel : ViewModelBase, IDisposable
 {
     private readonly HttpClient httpClient;
 
-    public InputViewModel()
+    public RequestViewModel()
     {
         URL = UserSettings.Default.DefaultUri;
 
@@ -23,7 +23,7 @@ public sealed class InputViewModel : ViewModelBase, IDisposable
 
     private async void SendRequestAction(object obj)
     {
-        if (SelectedMethod != EHttpMethods.Get && SelectedMethod != EHttpMethods.Delete)
+        if (SelectedMethod != EHttpMethod.Get && SelectedMethod != EHttpMethod.Delete)
         {
             if (!IsJsonValid())
             {
@@ -79,9 +79,9 @@ public sealed class InputViewModel : ViewModelBase, IDisposable
 
     public string RequestBody { get => _requestBody; set { _requestBody = value; OnPropertyChanged(); } }
 
-    private EHttpMethods _selectedMethod = EHttpMethods.Get;
+    private EHttpMethod _selectedMethod = EHttpMethod.Get;
 
-    public EHttpMethods SelectedMethod
+    public EHttpMethod SelectedMethod
     {
         get => _selectedMethod;
         set
@@ -91,12 +91,12 @@ public sealed class InputViewModel : ViewModelBase, IDisposable
         }
     }
 
-    public IEnumerable<EHttpMethods> Methods
+    public IEnumerable<EHttpMethod> Methods
     {
         get
         {
-            return Enum.GetValues(typeof(EHttpMethods))
-                .Cast<EHttpMethods>();
+            return Enum.GetValues(typeof(EHttpMethod))
+                .Cast<EHttpMethod>();
         }
     }
 

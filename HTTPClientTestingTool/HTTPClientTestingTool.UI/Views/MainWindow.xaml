@@ -22,9 +22,6 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" LastChildFill="False">
-
-            <TextBlock FontSize="36" Text="{Binding Title}" />
-
             <Button
                 Margin="5"
                 Padding="5"
@@ -39,6 +36,8 @@
         </DockPanel>
 
         <ContentControl Grid.Row="1" Content="{Binding UpperContent}" />
+
+        <Separator Grid.Row="1" VerticalAlignment="Bottom"/>
 
         <ContentControl Grid.Row="2" Content="{Binding LowerContent}" />
 
