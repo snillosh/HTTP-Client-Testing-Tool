@@ -37,33 +37,12 @@ public sealed class InputViewModel : ViewModelBase, IDisposable
 
         try
         {
-            var content = new StringContent(RequestBody, Encoding.UTF8, "application/json");
-
-            var request = new HttpRequestMessage
-            {
-                Method = SelectedMethod switch
-                {
-                    EHttpMethods.Get => HttpMethod.Get,
-                    EHttpMethods.Post => HttpMethod.Post,
-                    EHttpMethods.Put => HttpMethod.Put,
-                    EHttpMethods.Delete => HttpMethod.Delete,
-                    _ => throw new InvalidOperationException("Unsupported HTTP method.")
-                },
-
-                RequestUri = new Uri(URL),
-                Content = content
-            };
-
-            // Set headers on the request
-            var headers = Headers.Split(",");
-            foreach (var split in headers)
-            {
-                var sections = split.Split(":");
-                if (sections.Length == 2)
-                {
-                    request.Headers.Add(sections[0].Trim(), sections[1].Trim());
-                }
-            }
+            var request = HttpRequestMessageBuilder
+                .WithUrl(new Uri(URL))
+                .WithMethod(SelectedMethod)
+                .WithContent(new StringContent(RequestBody, Encoding.UTF8, "application/json"))
+                .WithHeaders(Headers)
+                .Build();
 
             var response = await httpClient.SendAsync(request);
 
