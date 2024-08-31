@@ -16,24 +16,27 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock
             Grid.Row="0"
             Grid.Column="0"
+            VerticalAlignment="Center"
             Text="Default URI" />
 
         <TextBox
             Grid.Row="0"
             Grid.Column="1"
+            VerticalAlignment="Center"
             Text="{Binding DefaultUri}" />
 
         <Button
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="2"
+            VerticalAlignment="Center"
             Command="{Binding SaveSettingsCommand}"
             Content="Save Settings" />
 

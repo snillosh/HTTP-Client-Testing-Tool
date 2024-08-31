@@ -21,9 +21,6 @@
             <DataTemplate DataType="{x:Type viewModels:RequestViewModel}">
                 <views:RequestView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModels:ResponseViewModel}">
-                <views:ResponseView />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
                 <views:SettingsView />
             </DataTemplate>

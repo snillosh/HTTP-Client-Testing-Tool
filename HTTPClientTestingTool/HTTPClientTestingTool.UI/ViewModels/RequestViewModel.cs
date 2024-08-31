@@ -57,8 +57,6 @@ public sealed class RequestViewModel : ViewModelBase, IDisposable
         return true;
     }
 
-    public EventHandler<string>? ResponseChanged;
-
     private string _url;
 
     public string URL
@@ -111,14 +109,19 @@ public sealed class RequestViewModel : ViewModelBase, IDisposable
         {
             _responseBody = value;
             OnPropertyChanged();
-            OnResponseChanged();
         }
     }
 
+    private string _output;
 
-    private void OnResponseChanged()
+    public string Output
     {
-        ResponseChanged?.Invoke(this, ResponseBody);
+        get => _output;
+        set
+        {
+            _output = value;
+            OnPropertyChanged();
+        }
     }
 
     private bool IsJsonValid()
@@ -142,5 +145,3 @@ public sealed class RequestViewModel : ViewModelBase, IDisposable
 
     public void Dispose() => httpClient.Dispose();
 }
-
-public record Fruit(string Name, int Stock);

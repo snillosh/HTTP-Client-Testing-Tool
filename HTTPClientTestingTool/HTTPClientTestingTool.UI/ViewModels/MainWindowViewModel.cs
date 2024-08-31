@@ -1,70 +1,70 @@
 ﻿
 using HTTPClientTestingTool.UI.Utilities;
 using MahApps.Metro.IconPacks;
-using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace HTTPClientTestingTool.UI.ViewModels;
 
 class MainWindowViewModel : ViewModelBase
 {
-    private readonly ResponseViewModel _outputViewModel;
     private readonly RequestViewModel _inputViewModel;
-    public MainWindowViewModel(RequestViewModel inputViewModel, ResponseViewModel outputViewModel)
+    public MainWindowViewModel(RequestViewModel inputViewModel)
     {
         _inputViewModel = inputViewModel;
-        _outputViewModel = outputViewModel;
 
-        UpperContent = _inputViewModel;
-        LowerContent = _outputViewModel;
+        Menu = new ObservableCollection<MenuItem>
+        {
+            new MenuItem
+                    {
+                      Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.AccessPointNetwork },
+                      Label = "HTTP Request / Response",
+                      Command = new RelayCommand(HttpButtonClicked),
+                    },
+            new MenuItem
+                    {
+                      Icon = new PackIconForkAwesome() { Kind = PackIconForkAwesomeKind.Cog},
+                      Label = "Settings",
+                      Command = new RelayCommand(SettingsButtonClicked),
+                    },
+        };
 
-        SettingsButtonCommand = new RelayCommand(SettingsButtonClicked);
+        Content = _inputViewModel;
+    }
 
-        _inputViewModel.ResponseChanged += _outputViewModel.GetResponse;
+    private void HttpButtonClicked(object obj)
+    {
+        Content = _inputViewModel;
     }
 
     private void SettingsButtonClicked(object obj)
     {
-        LowerContent = LowerContent.GetType() == typeof(ResponseViewModel) ? new SettingsViewModel() : _outputViewModel;
-
-        OnPropertyChanged(nameof(SettingsButtonContent));
-        OnPropertyChanged(nameof(SettingsButtonTooltip));
+        Content = new SettingsViewModel();
     }
 
     public string Title => "HTTP Client Test Tool";
 
-    private ViewModelBase _upperContent;
+    private ViewModelBase _content;
 
-    public ViewModelBase UpperContent
+    public ViewModelBase Content
     {
-        get => _upperContent;
+        get => _content;
         set
         {
-            _upperContent = value;
+            _content = value;
             OnPropertyChanged();
         }
     }
 
-    private ViewModelBase _lowerContent;
+    private ObservableCollection<MenuItem> _menu;
 
-    public ViewModelBase LowerContent
+    public ObservableCollection<MenuItem> Menu
     {
-        get => _lowerContent;
+        get => _menu;
         set
         {
-            _lowerContent = value;
+            _menu = value;
             OnPropertyChanged();
         }
     }
 
-    private PackIconModernKind _settingsButtonContent;
-
-    public PackIconModernKind SettingsButtonContent => LowerContent.GetType() == typeof(ResponseViewModel) ? PackIconModernKind.Settings : PackIconModernKind.Home;
-
-    private string _settingsButtonTooltip;
-
-    public string SettingsButtonTooltip => LowerContent.GetType() == typeof(ResponseViewModel) ? "Settings" : "Home";
-
-
-
-    public ICommand SettingsButtonCommand { get; }
 }

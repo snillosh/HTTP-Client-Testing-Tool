@@ -20,10 +20,8 @@ public partial class App : Application
 
         ThemeManager.Current.ChangeTheme(this, "Dark.Green");
 
-        var outputViewModel = new ResponseViewModel();
-
         // Create and configure the MainWindow
-        var mainWindowViewModel = new MainWindowViewModel(_inputViewModel, outputViewModel);
+        var mainWindowViewModel = new MainWindowViewModel(_inputViewModel);
         var mainWindow = new MainWindow
         {
             DataContext = mainWindowViewModel
